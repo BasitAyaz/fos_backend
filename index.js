@@ -5,6 +5,8 @@ const { getPool } = require('./config/db');
 const SalesRoute = require("./routes/salesRoute");
 const PurchaseRoute = require("./routes/purchaseRoute");
 const TransactionRoute = require("./routes/transactionRoute");
+const TransactionReportRoute = require("./routes/reports/itemtransaction");
+const ItemsLookup = require("./routes/lookup/itemlookup")
 
 const App = express();
 App.use(express.json());
@@ -13,6 +15,8 @@ App.use(express.json());
 App.use("/api/sales", SalesRoute)
 App.use("/api/purchase", PurchaseRoute)
 App.use("/api/transaction", TransactionRoute)
+App.use("/api/report/itemtransaction", TransactionReportRoute)
+App.use("/api/lookup/items", ItemsLookup)
 
 const PORT = 5000;
 
