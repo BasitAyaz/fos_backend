@@ -7,6 +7,7 @@ const PurchaseRoute = require("./routes/purchaseRoute");
 const TransactionRoute = require("./routes/transactionRoute");
 const TransactionReportRoute = require("./routes/reports/itemtransaction");
 const ItemsLookup = require("./routes/lookup/itemlookup")
+const BunitsLookup = require("./routes/lookup/buintlookup")
 
 const App = express();
 App.use(express.json());
@@ -17,6 +18,7 @@ App.use("/api/purchase", PurchaseRoute)
 App.use("/api/transaction", TransactionRoute)
 App.use("/api/report/itemtransaction", TransactionReportRoute)
 App.use("/api/lookup/items", ItemsLookup)
+App.use("/api/lookup/buinits", BunitsLookup)
 
 const PORT = 5000;
 

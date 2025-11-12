@@ -7,11 +7,11 @@ Route.get("/", async (req, res) => {
         const pool = await getPool();
 
         // Get parameters from query or hardcode for testing
-        const BUID = parseInt(req.query.BUID) || 4;
-        const ItemFrom = parseInt(req.query.ItemFrom) || 10319;
-        const ItemTo = parseInt(req.query.ItemTo) || 10320;
-        const PeriodFrom = req.query.PeriodFrom || '2025-10-01';
-        const PeriodTo = req.query.PeriodTo || '2025-10-31';
+        const BUID = parseInt(req.query.BUID);
+        const ItemFrom = parseInt(req.query.ItemFrom) || null;
+        const ItemTo = parseInt(req.query.ItemTo) || null;
+        const PeriodFrom = req.query.PeriodFrom || null;
+        const PeriodTo = req.query.PeriodTo || null;
 
         // Create SQL request
         const request = pool.request();
