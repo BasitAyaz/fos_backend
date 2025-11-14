@@ -15,8 +15,8 @@ Route.get("/", async (req, res) => {
         // --- Create base query
         let whereClause = "";
         if (search) {
-            // Assuming table has ItemName or similar column
-            whereClause = `WHERE ItemName LIKE '%' + @search + '%'`;
+            // Assuming table has ItemDesc or similar column
+            whereClause = `WHERE ItemDesc LIKE '%' + @search + '%'`;
         }
 
         // --- Prepare SQL queries
