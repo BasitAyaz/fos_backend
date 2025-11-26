@@ -7,19 +7,19 @@ Route.get("/", async (req, res) => {
         const pool = await getPool();
 
         // Get parameters from query or hardcode for testing
-        const LocFrom = parseInt(req.query.LocFrom);
-        const LocTo = parseInt(req.query.LocTo);
-        const IS2From = parseInt(req.query.IS2From);
-        const IS2To = parseInt(req.query.IS2To);
+        const LocFrom = req.query.LocFrom;
+        const LocTo = req.query.LocTo;
+        const IS2From = req.query.IS2From;
+        const IS2To = req.query.IS2To;
         const AsOnPrdID = parseInt(req.query.AsOnPrdID);
 
         // Create SQL request
         const request = pool.request();
-        request.input('IS2From', sql.Int, IS2From);
-        request.input('IS2To', sql.Int, IS2To);
+        request.input('IS2From', sql.VarChar(10), IS2From);
+        request.input('IS2To', sql.VarChar(10), IS2To);
+        request.input('LocFrom', sql.VarChar(10), LocFrom);
+        request.input('LocTo', sql.VarChar(10), LocTo);
         request.input('AsOnPrdID', sql.Int, AsOnPrdID);
-        request.input('LocFrom', sql.Int, LocFrom);
-        request.input('LocTo', sql.Int, LocTo);
 
         // Execute the stored procedure
         const result = await request.execute('dbo.sp_GetStockByIS2Range');
