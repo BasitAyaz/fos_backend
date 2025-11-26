@@ -14,6 +14,7 @@ const IsegLookup = require("./routes/lookup/iseglookup")
 const PeriodLookup = require("./routes/lookup/periodlookup")
 const LoginRoute = require("./routes/auth/login")
 const CreateUserRoute = require("./routes/auth/signup")
+const DashboardRoute = require("./routes/dashboard")
 
 const App = express();
 App.use(express.json());
@@ -31,6 +32,7 @@ App.use("/api/lookup/iseg", IsegLookup)
 App.use("/api/lookup/period", PeriodLookup)
 App.use("/api/auth/createuser", CreateUserRoute)
 App.use("/api/auth/login", LoginRoute)
+App.use("/api/dashboard", DashboardRoute)
 
 const PORT = 5000;
 
