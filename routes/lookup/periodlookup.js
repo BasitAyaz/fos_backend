@@ -16,7 +16,7 @@ Route.get("/", async (req, res) => {
         let whereClause = "";
         if (search) {
             // Assuming table has BUDesc or similar column
-            whereClause = `WHERE periods LIKE '%' + @search + '%'`;
+            whereClause = `WHERE PrdDesc LIKE '%' + @search + '%'`;
         }
 
         // --- Prepare SQL queries
