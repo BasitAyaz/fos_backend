@@ -16,7 +16,7 @@ Route.get("/", async (req, res) => {
         let whereClause = "";
         if (search) {
             // Assuming table has BUDesc or similar column
-            whereClause = `WHERE LocDesc LIKE '%' + @search + '%'`;
+            whereClause = `WHERE LocDesc LIKE '%' + @search + '%' OR LocCode LIKE '%' + @search + '%'`;
         }
 
         // --- Prepare SQL queries

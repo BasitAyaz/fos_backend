@@ -16,7 +16,7 @@ Route.get("/", async (req, res) => {
         let whereClause = "";
         if (search) {
             // Assuming table has BUDesc or similar column
-            whereClause = `WHERE IVSDesc LIKE '%' + @search + '%'`;
+            whereClause = `WHERE IVSDesc LIKE '%' + @search + '%' OR IVSCode LIKE '%' + @search + '%'`;
         }
 
         // --- Prepare SQL queries

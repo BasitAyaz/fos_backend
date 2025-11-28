@@ -15,6 +15,7 @@ const PeriodLookup = require("./routes/lookup/periodlookup")
 const LoginRoute = require("./routes/auth/login")
 const CreateUserRoute = require("./routes/auth/signup")
 const DashboardRoute = require("./routes/dashboard")
+const CurrentPeriodRoute = require("./routes/currentperiod")
 
 const App = express();
 App.use(express.json());
@@ -23,6 +24,7 @@ App.use(express.json());
 App.use("/api/sales", SalesRoute)
 App.use("/api/purchase", PurchaseRoute)
 App.use("/api/transaction", TransactionRoute)
+App.use("/api/currentperiod", CurrentPeriodRoute)
 App.use("/api/report/itemtransaction", TransactionReportRoute)
 App.use("/api/report/stock", StockReportRoute)
 App.use("/api/lookup/items", ItemsLookup)
