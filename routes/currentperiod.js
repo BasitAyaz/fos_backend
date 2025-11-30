@@ -1,14 +1,18 @@
 const express = require("express");
 const Route = express.Router()
-const { getPool } = require("../config/db")
+const { getPool, sql } = require("../config/db")
 
 Route.get("/", async (req, res) => {
     try {
         const pool = await getPool();
+        const date = req.query.date || new Date();
 
-        let query = `SELECT * FROM periods WHERE GETDATE() BETWEEN PrdStDate AND PrdEdDate;`
+        let query = `SELECT * FROM periods WHERE @date BETWEEN PrdStDate AND PrdEdDate;`
 
-        const result = await pool.request().query(query);
+        const result = await pool.request()
+            .input("date", sql.Date, date)
+            .query(query);
+
         res.json({
             data: result.recordset[0] || null
         });
