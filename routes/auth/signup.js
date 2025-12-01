@@ -4,16 +4,15 @@ const Route = express.Router();
 const { getPool, sql } = require("../../config/db");
 
 Route.post("/", async (req, res) => {
-    const { userName, password, fullName, location } = req.body;
+    const { userName, password, fullName, location, rollId } = req.body;
 
-    if (!userName || !password || !fullName || !location) {
+    if (!userName || !password || !fullName || !location || !rollId) {
         return res.status(400).json({ message: "All fields are required." });
     }
 
     try {
         const pool = await getPool();
 
-        // Check if username already exists
         const existingUser = await pool.request()
             .input("userName", sql.VarChar(250), userName)
             .query(`
@@ -26,19 +25,18 @@ Route.post("/", async (req, res) => {
             return res.status(409).json({ message: "Username already exists." });
         }
 
-        // Hash the password using bcrypt
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Insert new user
         await pool.request()
             .input("userName", sql.VarChar(250), userName)
             .input("password", sql.VarChar(250), hashedPassword)
             .input("fullName", sql.VarChar(250), fullName)
             .input("location", sql.Int, location)
             .input("isActive", sql.Bit, true)
+            .input("rollId", sql.Int, rollId)
             .query(`
-                INSERT INTO AppUser (userName, password, fullName, location, isActive)
-                VALUES (@userName, @password, @fullName, @location, @isActive)
+                INSERT INTO AppUser (userName, password, fullName, location, isActive, rollId)
+                VALUES (@userName, @password, @fullName, @location, @isActive, @rollId)
             `);
 
         return res.status(201).json({
@@ -46,10 +44,9 @@ Route.post("/", async (req, res) => {
             user: {
                 userName,
                 fullName,
-                location
+                location,
             }
         });
-
     } catch (error) {
         console.error("Signup error:", error);
         return res.status(500).json({ message: "Internal server error" });
