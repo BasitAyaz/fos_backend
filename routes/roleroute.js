@@ -23,15 +23,15 @@ Route.post("/", async (req, res) => {
     try {
         const body = req.body
 
-        const keys = ["controlId", "View", "name"]
+        const keys = ["controlId", "name"]
         let obj = {}
         keys.forEach(k => {
             obj[k] = body[k]
         })
 
-        if (!obj.controlId || !obj.name || !obj.View) {
+        if (!obj.controlId || !obj.name) {
             return res.status(400).json({
-                error: "controlId, View and name are required."
+                error: "controlId, name are required."
             });
         }
 
@@ -39,14 +39,13 @@ Route.post("/", async (req, res) => {
 
         const pool = await getPool();
         const query = `
-            INSERT INTO Roles (controlId, View, name)
+            INSERT INTO Roles (controlId,  name)
             OUTPUT INSERTED.*
-            VALUES (@controlId, @View, @name);
+            VALUES (@controlId, @name);
         `;
 
         const result = await pool.request()
             .input("controlId", obj.controlId)
-            .input("View", obj.View)
             .input("name", obj.name)
             .query(query);
 
