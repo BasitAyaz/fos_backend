@@ -6,7 +6,7 @@ const { getPool, sql } = require("../../config/db");
 Route.post("/", async (req, res) => {
     const { userName, password, fullName, location, rollId } = req.body;
 
-    if (!userName || !password || !fullName || !location || !rollId) {
+    if (!userName || !password || !fullName || !rollId) {
         return res.status(400).json({ message: "All fields are required." });
     }
 
@@ -31,12 +31,11 @@ Route.post("/", async (req, res) => {
             .input("userName", sql.VarChar(250), userName)
             .input("password", sql.VarChar(250), hashedPassword)
             .input("fullName", sql.VarChar(250), fullName)
-            .input("location", sql.Int, location)
             .input("isActive", sql.Bit, true)
             .input("rollId", sql.Int, rollId)
             .query(`
-                INSERT INTO AppUser (userName, password, fullName, location, isActive, rollId)
-                VALUES (@userName, @password, @fullName, @location, @isActive, @rollId)
+                INSERT INTO AppUser (userName, password, fullName, isActive, rollId)
+                VALUES (@userName, @password, @fullName, @isActive, @rollId)
             `);
 
         return res.status(201).json({
