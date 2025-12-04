@@ -31,6 +31,13 @@ Route.post("/", async (req, res) => {
         }
 
         const user = result.recordset[0];
+        const role = await pool.request()
+            .input("rollId", sql.Int, user.rollId)
+            .query(`
+                SELECT * 
+                FROM roles 
+                WHERE id = @rollId
+            `);
 
         // Compare bcrypt password hash
         const passwordMatch = await bcrypt.compare(password, user.password);
@@ -46,7 +53,6 @@ Route.post("/", async (req, res) => {
             {
                 userName: user.userName,
                 fullName: user.fullName,
-                location: user.location,
             },
             JWT_SECRET
         );
@@ -58,7 +64,7 @@ Route.post("/", async (req, res) => {
             user: {
                 userName: user.userName,
                 fullName: user.fullName,
-                location: user.location
+                role: role.recordsets[0][0],
             }
         });
 
