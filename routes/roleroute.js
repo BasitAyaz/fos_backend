@@ -126,14 +126,14 @@ Route.put("/:id", async (req, res) => {
         let updateFields = [];
         const request = pool.request().input("id", sql.Int, id);
 
-        if (name !== undefined) {
+        if (name) {
             updateFields.push("name = @name");
             request.input("name", sql.VarChar, name);
         }
 
-        if (controlId !== undefined) {
+        if (controlId) {
             updateFields.push("controlId = @controlId");
-            request.input("controlId", sql.Int, controlId);
+            request.input("controlId", sql.VarChar, controlId);
         }
 
         // Execute update
