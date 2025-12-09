@@ -13,10 +13,10 @@ Route.get("/", async (req, res) => {
         const offset = (page - 1) * limit;
 
         // --- Create base query
-        let whereClause = "";
+        let whereClause = "WHERE Active = 1";
         if (search) {
             // Assuming table has ItemDesc or similar column
-            whereClause = `WHERE ItemDesc LIKE '%' + @search + '%' OR ItemCode LIKE '%' + @search + '%'`;
+            whereClause += `WHERE ItemDesc LIKE '%' + @search + '%' OR ItemCode LIKE '%' + @search + '%'`;
         }
 
         // --- Prepare SQL queries
