@@ -44,6 +44,8 @@ const CurrentPeriodRoute = require("./routes/currentperiod")
 const u2CurrentPeriodRoute = require("./u2_routes/currentperiod")
 const RoleRoute = require("./routes/roleroute")
 const u2RoleRoute = require("./u2_routes/roleroute")
+const u2PurchaseInvoiceRegisterRoute = require("./u2_routes/reports/purchaseinvoiceregister")
+const u2SalesInvoiceRegisterRoute = require("./u2_routes/reports/salesinvoiceregister")
 
 const App = express();
 App.use(express.json());
@@ -84,6 +86,8 @@ App.use("/api/u2/report/itemtransaction", u2TransactionReportRoute)
 App.use("/api/u2/report/stock", u2StockReportRoute)
 App.use("/api/u2/report/ledger", u2LedgerReportRoute)
 App.use("/api/u2/report/customerledger", u2CustomerLedgerReportRoute)
+App.use("/api/u2/report/purchaseinvoiceregister", u2PurchaseInvoiceRegisterRoute)
+App.use("/api/u2/report/salesinvoiceregister", u2SalesInvoiceRegisterRoute)
 App.use("/api/u2/lookup/items", u2ItemsLookup)
 App.use("/api/u2/lookup/buinits", u2BunitsLookup)
 App.use("/api/u2/lookup/location", u2LocationLookup)
